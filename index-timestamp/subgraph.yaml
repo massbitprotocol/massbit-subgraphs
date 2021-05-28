@@ -16,6 +16,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - MasterChefModel
+        - BlockTs
       abis:
         - name: MasterChef
           file: ./abis/MasterChef.json

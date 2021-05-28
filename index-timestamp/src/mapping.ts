@@ -12,6 +12,22 @@ export function handleBlock(block: ethereum.Block): void {
   entity.save()
 }
 
+export function handleTimestampSet(extrinsic: substrate.SubstrateExtrinsic): void {
+  const record = new BlockTs(extrinsic.block.block.header.hash.toString());
+  record.blockHeight = extrinsic.block.block.header.number.toString();
+  // const moment = extrinsic.extrinsic.args[0] as Compact<Moment>;
+  // record.timestamp = new Date(moment.toNumber()).toDateString();
+  record.save();
+}
+
+declare namespace typeConversion {
+  function bigIntToHex(n: Uint8Array): String
+}
+
+export function big_int_to_hex(n: Uint8Array): String {
+  return typeConversion.bigIntToHex(n)
+}
+
 // export function handleTimestampSet(extrinsic: substrate.SubstrateExtrinsic): void {
 //   const record = new BlockTs(extrinsic.block.block.header.hash.toString());
 //   record.blockHeight = extrinsic.block.block.header.number.toString();
