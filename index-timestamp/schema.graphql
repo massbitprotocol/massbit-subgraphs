@@ -2,3 +2,10 @@ type MasterChefModel @entity {
   id: ID!
   timestamp: BigInt!
 }
+
+type BlockTs @entity {
+  id: ID!
+  blockHeight: String!
+  timestamp: String!
+}
+
