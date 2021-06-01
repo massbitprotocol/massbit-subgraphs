@@ -1,0 +1,22 @@
+type MasterChefModel @entity {
+  id: ID!
+  timestamp: BigInt!
+}
+
+type SumReward @entity{
+
+  id: ID! # AccountId
+
+  accountReward: Int!
+
+  accountSlash: Int!
+
+  accountTotal: Int!
+}
+
+# in early stage of kusama, some validators didn't need to bond to start staking
+type NoBondRecordAccount @entity {
+  id: ID! # AccountId
+
+  firstRewardAt: Int!
+}
