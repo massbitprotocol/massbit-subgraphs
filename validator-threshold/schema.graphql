@@ -1,0 +1,25 @@
+type MasterChefModel @entity {
+  id: ID!
+  timestamp: BigInt!
+}
+
+type ValidatorThreshold @entity {
+  # era index
+  id: ID!
+
+  startBlock: Int!
+
+  timestamp: String!
+
+  validatorWithLeastBond: String
+
+  leastStaked: BigInt
+
+  totalStaked: BigInt
+
+  maxNominatorRewardedPerValidator: Int
+
+  totalValidators: Int
+}
+
+
