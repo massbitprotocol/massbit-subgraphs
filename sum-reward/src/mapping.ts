@@ -4,7 +4,6 @@ import { substrate } from '@graphprotocol/graph-ts'
 
 //TODO import Balance
 // import {Balance} from '@polkadot/types/interfaces';
-// import {NoBondRecordAccount} from "../types/models/NoBondRecordAccount";
 
 function createSumReward(accountId: string): SumReward {
   let entity = new SumReward(accountId);
@@ -32,6 +31,7 @@ export function handleReward(substrateEvent: substrate.SubstrateEvent): void {
     // const {event: {data: [account, newReward]}} = event;
 
     let account = substrateEvent.event.account;
+    let newReward = substrateEvent.event.newReward;
     // let entity =  SumReward.get(account.toString());
     let entity =  SumReward.load(account);
     if (!entity){
@@ -45,6 +45,7 @@ export function handleReward(substrateEvent: substrate.SubstrateEvent): void {
     }
 
     // entity.accountReward = entity.accountReward + (newReward as Balance).toBigInt();
+    entity.accountReward = entity.accountReward + newReward.toI32();
     entity.accountTotal = entity.accountReward - entity.accountSlash;
     entity.save();
 }
@@ -53,10 +54,12 @@ export function handleSlash(substrateEvent: substrate.SubstrateEvent): void {
     // const {event: {data: [account, newSlash]}} = event;
 
     let account = substrateEvent.event.account;
+    let newSlash = substrateEvent.event.newReward;
     // const entity =  SumReward.get(account.toString());
     let entity =  SumReward.load(account);
 
     // entity.accountSlash = entity.accountSlash + (newSlash as Balance).toBigInt();
+    entity.accountSlash = entity.accountSlash + newSlash.toI32();
     entity.accountTotal = entity.accountReward - entity.accountSlash;
     entity.save();
 }
